@@ -10,7 +10,7 @@ Precisamos processar um arquivo com milhões de linhas usando Spring Batch, gara
 Além disso, os metadados do batch devem ser persistidos no PostgreSQL via JobRepository.
 
 ## Decisão
-Implementar um `ItemReader` customizado (`ChunkCheckpointingReader`) que é `ItemStream` e mantém um `committedOffset` (posição da próxima linha após o último chunk confirmado). O offset é o único valor persistido no `ExecutionContext` no momento do commit do chunk. Um `ItemWriter` vazio (`ChunkCommitWriter`) marca o offset como `currentIndex` do reader antes do commit. Com isso, ao reiniciar, o reader pula diretamente para o offset do último chunk confirmado, reprocessando integralmente o chunk interrompido e evitando checkpoints por item.
+Implementar um `ItemReader` customizado (`ChunkCheckpointingReader`) que é `ItemStream` e mantém um `committedOffset` (posição da próxima linha após o último chunk confirmado). O offset só é persistido no `ExecutionContext` no momento do commit do chunk. Um `ItemWriter` vazio (`ChunkCommitWriter`) marca o offset como `currentIndex` do reader antes do commit. Com isso, ao reiniciar, o reader pula diretamente para o offset do último chunk confirmado, reprocessando integralmente o chunk interrompido.
 
 ## Alternativas consideradas
 
