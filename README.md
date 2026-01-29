@@ -74,8 +74,6 @@ batch:
 
 - O job não grava as linhas em lugar nenhum; apenas registra log de cada chunk concluído.
 - O checkpoint é feito **por chunk**, não por item.
-- **Atenção aos JobParameters**: se você reiniciar o app com parâmetros diferentes (mesmo só um timestamp), o Spring cria um novo **JobInstance** e o processamento começa do zero. A validação de restart deve garantir que é o **mesmo JobInstance**.
-- **Arquivo/reader determinístico**: se o arquivo for trocado ou mudar de tamanho/ordem entre execuções, o `committedOffset` deixa de apontar para o mesmo conteúdo. Para testes de resume, o arquivo **deve ser exatamente o mesmo** entre runs.
 
 ## Comandos úteis
 
