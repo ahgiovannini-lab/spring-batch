@@ -30,7 +30,7 @@ O `ExecutionContext` é usado para armazenar checkpoints do step e é persistido
    - Abre o arquivo.
    - Pula até `committedOffset`.
    - Incrementa `currentIndex` a cada linha lida.
-   - Persiste o `committedOffset` apenas no commit do chunk.
+   - Persiste somente o `committedOffset` no `ExecutionContext` durante o commit do chunk, evitando checkpoints por item.
 
 2. **ChunkCommitWriter**
    - Não grava dados; apenas marca o `committedOffset` como `currentIndex` do reader.
@@ -57,7 +57,7 @@ O `ExecutionContext` é usado para armazenar checkpoints do step e é persistido
 ## Pitfalls comuns
 
 - **Reader padrão com saveState por item**: pode retomar no meio do chunk, violando a regra de reprocessar o chunk inteiro.
-- **Persistir offset por item**: causa reprocessamento parcial e inconsistência.
+- **Persistir offset por item**: causa reprocessamento parcial e inconsistência. Neste projeto evitamos salvar `currentIndex` no `ExecutionContext` justamente para impedir que alguém use esse valor como checkpoint de item.
 - **Falta de commit transacional**: sem transação por chunk, o checkpoint não reflete chunks completos.
 
 ## Referências

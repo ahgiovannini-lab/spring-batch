@@ -5,7 +5,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>spring-batch-chunk-resume</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>spring-batch-chunk-resume</name>
     <description>Spring Batch chunk checkpoint/resume example</description>
 
