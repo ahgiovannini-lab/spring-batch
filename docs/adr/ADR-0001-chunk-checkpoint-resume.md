@@ -15,6 +15,8 @@ Implementar um `ItemReader` customizado (`ChunkCheckpointingReader`) que é `Ite
 Um `ItemWriter` vazio (`ChunkCommitWriter`) marca o offset como `currentIndex` do reader antes do commit. Com isso, ao reiniciar, 
 o reader pula diretamente para o offset do último chunk confirmado, reprocessando integralmente o chunk interrompido e evitando checkpoints por item.
 
+Também definimos que **não** persistimos `chunkResume.currentIndex` no `ExecutionContext`, mantendo esse contador apenas em memória para evitar qualquer tentativa futura de resume por item.
+
 ## Alternativas consideradas
 
 1. **Salvar offset por item**

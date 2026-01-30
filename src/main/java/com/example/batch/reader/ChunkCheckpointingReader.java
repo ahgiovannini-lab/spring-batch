@@ -83,8 +83,9 @@ public class ChunkCheckpointingReader implements ItemStreamReader<String>, ItemS
             return;
         }
         long offsetToPersist = lastCommittedOffset >= 0 ? lastCommittedOffset : committedOffset;
+        logger.info("Persisting committed offset. lastCommittedOffset={}, committedOffset={}, offsetToPersist={}",
+                lastCommittedOffset, committedOffset, offsetToPersist);
         executionContext.putLong(CONTEXT_KEY, offsetToPersist);
-        executionContext.putLong("chunkResume.currentIndex", currentIndex);
     }
 
     @Override
