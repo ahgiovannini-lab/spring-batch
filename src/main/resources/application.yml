@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: spring-batch-chunk-resume
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring_batch
+    username: spring
+    password: spring
+    driver-class-name: org.postgresql.Driver
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      name: chunkResumeJob
+logging:
+  level:
+    root: INFO
+    org.springframework.batch: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"
+
+batch:
+  chunkSize: 1000
+  inputFile: src/main/resources/input/huge-file.txt
+  fail:
+    enabled: false
+    atChunk: 7
+  generator:
+    lines: 5000000
+    linePadding: 10
